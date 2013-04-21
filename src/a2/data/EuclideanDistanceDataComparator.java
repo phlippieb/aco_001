@@ -1,7 +1,8 @@
 package a2.data;
 
 /**
- *
+ * A euclidean distance calculator for data vector comparison.
+ * Throws a runtime exception if data is invalid.
  * @author phlippie
  */
 public class EuclideanDistanceDataComparator implements DataComparator {

@@ -112,9 +112,6 @@ public class ACO {
 
     public void print () {
         this.grid.print();
-        for (int i = 0; i < data.length; i++) {
-            System.out.print(i + ":(" + data[i].getX() + ";" + data[i].getY() + ")  #  ");
-        }
     }
 
     public void iterate () {
