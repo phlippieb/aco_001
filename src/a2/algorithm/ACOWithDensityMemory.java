@@ -32,6 +32,7 @@ public class ACOWithDensityMemory {
     double gamma = 0.01;
     double gamma1 = 2.5;
     double gamma2 = 2.5;
+    int maxAntVelocity;
     double memoryBias = 0.5; // probability of going with best remembered position
 
     /**The patch will be a square around an ant, with sides of length 2r+1.
@@ -60,6 +61,10 @@ public class ACOWithDensityMemory {
      */
     public void setGamma2 (double g2) {
         this.gamma2 = g2;
+    }
+
+    public void setAntVelocity (int v) {
+        this.maxAntVelocity = v;
     }
 
     public void setMemoryBias (double bias) {
@@ -198,7 +203,8 @@ public class ACOWithDensityMemory {
         double velocity = 0.0;
         for (int i = 0; i < patchData.size(); i++) {
             distance = dataComparator.getDistanceBetween(theData, patchData.get(i));
-            sum += (1 - (distance / (gamma)));
+            velocity = (Math.random() * (double)(maxAntVelocity -1)) + 1.0;
+            sum += (1 - (distance / (gamma * (1 - ((velocity -1)/(maxAntVelocity))))));
         }
         if (sum < 0.0) {
             return 0.0;
