@@ -43,9 +43,18 @@ public class ClusterEvaluator {
         }
         averageInterClusterDistance /= (double)connectionCount(clusters.size());
 
+        // find average cluster size
+        double averageClusterSize = 0.0;
+        for (ArrayList <Cell> cluster : clusters) {
+            averageClusterSize += cluster.size();
+        }
+        averageClusterSize /= clusters.size();
+
         System.out.println();
-        System.out.println ("Average intra-cluster distance:" +averageIntraClusterDistance);
-        System.out.println ("Average inter-cluster distance:" +averageInterClusterDistance);
+        System.out.println ("Number of clusters:   " + clusters.size());
+        System.out.println ("Average cluster size: " + averageClusterSize);
+        System.out.println ("Average intra-cluster distance: " +averageIntraClusterDistance);
+        System.out.println ("Average inter-cluster distance: " +averageInterClusterDistance);
 
     }
 
