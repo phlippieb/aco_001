@@ -21,7 +21,7 @@ public class Ant {
         this.x = copy.x;
         this.y = copy.y;
         if (copy.hasData()) {
-            this.d = copy.getData();
+            this.d = copy.getData().clone();
         } else {
             this.d = null;
         }
@@ -36,7 +36,16 @@ public class Ant {
     }
 
     public void setData (Data d) {
-        this.d = d;
+        if (d == null){
+            this.d = null;
+        }
+        this.d = d.clone();
+    }
+
+    public Data clearData () {
+        Data data = this.d.clone();
+        this.d = null;
+        return data;
     }
 
     public int getX () {
@@ -48,7 +57,10 @@ public class Ant {
     }
 
     public Data getData () {
-        return this.d;
+        if (this.d == null) {
+            return null;
+        }
+        return this.d.clone();
     }
 
     public boolean hasData () {
