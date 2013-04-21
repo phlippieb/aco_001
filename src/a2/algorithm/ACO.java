@@ -23,6 +23,7 @@ public class ACO {
     Ant [] ants;
     Data [] data;
     int dataSize = 5;
+    int dataRange = 10;
     DataComparator dataComparator = new EuclideanDistanceDataComparator ();
     int maxAntVelocity = 2;
     int patchRadius = 1; // The patch is a square with sides of 2r + 1
@@ -30,13 +31,48 @@ public class ACO {
     double gamma1 = 2.5;
     double gamma2 = 2.5;
 
+    public void setAntVelocity (int velocity) {
+        this.maxAntVelocity = velocity;
+    }
 
-    public ACO (int xSize, int ySize, int numberOfAnts, int numberOfData) {
+    /**The patch will be a square around an ant, with sides of length 2r+1.
+     * @param r
+     */
+    public void setPatchRadius (int r) {
+        this.patchRadius = r;
+    }
+
+    /**The gamma constant scales the dissimilarity between data vectors.
+     * @param g
+     */
+    public void setGamma (double g) {
+        this.gamma = g;
+    }
+
+    /**The gamma1 constant scales the probability that an ant will pick up an item.
+     * @param g1
+     */
+    public void setGamma1 (double g1) {
+        this.gamma1 = g1;
+    }
+
+    /**The gamma2 constant scales the probability that an ant will drop an item.
+     * @param g2
+     */
+    public void setGamma2 (double g2) {
+        this.gamma2 = g2;
+    }
+
+    public ACO (int xSize, int ySize, int numberOfAnts, int numberOfData, int dataSize, int dataRange) {
 
         //init grid and ant array
         this.grid = new Grid (xSize, ySize);
         this.ants = new Ant [numberOfAnts];
         this.data = new Data [numberOfData];
+
+        //init data size and range
+        this.dataSize = dataSize;
+        this.dataRange = dataRange;
 
         //housekeeping
         int randomX;
@@ -52,7 +88,7 @@ public class ACO {
             //initialize the datavector with random data
             ArrayList randomData = new ArrayList();
             for (int j = 0; j < dataSize; j++) {
-                randomData.add(new Double((int)(Math.random()) * 4 + 1));
+                randomData.add(new Double((int)(Math.random()) * dataRange));
                 //randomData.add(new Double(5.0)); //test with one type to force clusters
             }
 

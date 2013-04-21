@@ -18,7 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        ACO aco = new ACO (15, 60, 5, 20);
+        ACO aco = new ACO (15, 60, 5, 20, 5, 10);
         aco.print();
         double iterations = 10000;
 
