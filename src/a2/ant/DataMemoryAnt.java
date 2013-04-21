@@ -31,7 +31,16 @@ public class DataMemoryAnt extends Ant {
     }
 
     public RememberedData [] getMemory () {
-        return (RememberedData[])(this.memory.toArray());
+        //return (RememberedData[])(this.memory.toArray());
+        return (this.memory.toArray(new RememberedData [0]));
+    }
+
+    public void clearMemory () {
+        memory.clear();
+    }
+
+    public boolean hasMemory () {
+        return (this.memory != null && this.memory.size() > 0);
     }
     
 

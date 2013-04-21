@@ -6,6 +6,8 @@
 package a2;
 
 import a2.algorithm.ACO;
+import a2.algorithm.ACOWithDataMemory;
+import a2.algorithm.ACOWithDensityMemory;
 
 /**
  *
@@ -19,43 +21,51 @@ public class Main {
     public static void main(String[] args) {
 
         // test args:
-        if (args.length != 9) {
+        if (args.length != 12) {
             System.out.println("Usage:");
-            System.out.println("Main <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2>");
+            System.out.println("Main <iterations> <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2> <ant memory size> <ant memory bias U(0,1)>");
             return;
         }
 
-            int xSize = -1;
-            int ySize = -1;
-            int numberOfAnts = -1;
-            int numberOfDataVectors = -1;
-            int dataVectorSize = -1;
-            int dataVectorRange = -1;
-            double gamma = -1;
-            double gamma1 = -1;
-            double gamma2 = -1;
-
+        double iterations = -1;
+        int xSize = -1;
+        int ySize = -1;
+        int numberOfAnts = -1;
+        int numberOfDataVectors = -1;
+        int dataVectorSize = -1;
+        int dataVectorRange = -1;
+        double gamma = -1;
+        double gamma1 = -1;
+        double gamma2 = -1;
+        int antMemorySize = -1;
+        double antMemoryBias = -1;
 
         try {
-            xSize = Integer.parseInt(args[0]);
-            ySize = Integer.parseInt(args[1]);
-            numberOfAnts = Integer.parseInt(args[2]);
-            numberOfDataVectors = Integer.parseInt(args[3]);
-            dataVectorSize = Integer.parseInt(args[4]);
-            dataVectorRange = Integer.parseInt(args[5]);
-            gamma = Double.parseDouble(args[6]);
-            gamma1 = Double.parseDouble(args[7]);
-            gamma2 = Double.parseDouble(args[8]);
+            iterations = Double.parseDouble(args[0]);
+            xSize = Integer.parseInt(args[1]);
+            ySize = Integer.parseInt(args[2]);
+            numberOfAnts = Integer.parseInt(args[3]);
+            numberOfDataVectors = Integer.parseInt(args[4]);
+            dataVectorSize = Integer.parseInt(args[5]);
+            dataVectorRange = Integer.parseInt(args[6]);
+            gamma = Double.parseDouble(args[7]);
+            gamma1 = Double.parseDouble(args[8]);
+            gamma2 = Double.parseDouble(args[9]);
+            antMemorySize = Integer.parseInt(args[10]);
+            antMemoryBias = Double.parseDouble(args[11]);
+
 
             System.out.println ("Using a " + xSize + " by " + ySize + " grid with " + numberOfAnts + " ants and " + numberOfDataVectors + " data vectors of size " + dataVectorSize + " and range " + dataVectorRange + ".");
-            System.out.println("gamma = "+gamma+"; gamma1 = "+gamma1+"; gamma2 = "+gamma2);
+            System.out.println ("gamma = "+gamma+"; gamma1 = "+gamma1+"; gamma2 = "+gamma2);
+            System.out.println ("ants have memory of "+antMemorySize+" items and are biased with P="+antMemoryBias);
         } catch (Exception e) {
             System.out.println ("Invalid argument passed.");
             System.out.println (e);
             return;
         }
 
-        if (xSize == -1 ||
+        if (iterations == -1 ||
+            xSize == -1 ||
             ySize == -1 ||
             numberOfAnts == -1 ||
             numberOfDataVectors == -1 ||
@@ -63,21 +73,24 @@ public class Main {
             dataVectorRange == -1 ||
             gamma == -1 ||
             gamma1 == -1 ||
-            gamma2 == -1) {
+            gamma2 == -1 ||
+            antMemoryBias == -1 ||
+            antMemorySize == -1) {
             System.out.println ("Invalid or unitialized args.");
             return;
         }
 
 
 
-        ACO aco = new ACO (xSize, ySize, numberOfAnts, numberOfDataVectors, dataVectorSize, dataVectorRange);
+        //ACOWithDataMemory aco = new ACOWithDataMemory (xSize, ySize, numberOfAnts, numberOfDataVectors, dataVectorSize, dataVectorRange, antMemorySize);
+        ACOWithDensityMemory aco = new ACOWithDensityMemory (xSize, ySize, numberOfAnts, numberOfDataVectors, dataVectorSize, dataVectorRange, antMemorySize);
         aco.setGamma(gamma);
         aco.setGamma1(gamma1);
         aco.setGamma2(gamma2);
+        aco.setMemoryBias(antMemoryBias);
         System.out.println ("\nBEFORE:\n");
         aco.print();
-        double iterations = 10000;
-
+        
         int percent = 0;
         for (double i = 0; i < iterations; i++) {
             aco.iterate();
