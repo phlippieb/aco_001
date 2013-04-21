@@ -95,13 +95,16 @@ public class ACOWithDensityMemory {
             //initialize the datavector with random data
             ArrayList randomData = new ArrayList();
             for (int j = 0; j < dataSize; j++) {
-                randomData.add(new Double((int)(Math.random()) * dataRange));
+                randomData.add(new Double((int)((Math.random()) * dataRange)));
                 //randomData.add(new Double(5.0)); //test with one type to force clusters
             }
 
             Data newData = new Data (randomData);
             grid.setCellData(randomX, randomY, newData);
             this.data[i] = newData;
+            System.out.print ("created data vector: [");
+            for (int a = 0; a < this.dataSize; a++) System.out.print (newData.getData().get(a) + " ");
+            System.out.println ("]");
         }
 
         //init ants and place randomly on grid
