@@ -86,4 +86,12 @@ public class Grid {
     public Cell getCell (int x, int y) {
         return cells[x][y];
     }
+
+    public int getXSize () {
+        return this.maxX;
+    }
+
+    public int getYSize () {
+        return this.maxY;
+    }
 }

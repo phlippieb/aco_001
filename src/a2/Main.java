@@ -5,9 +5,12 @@
 
 package a2;
 
-import a2.algorithm.ACO;
+import a2.Evaluation.ClusterEvaluator;
+import a2.Evaluation.ClusterFinder;
 import a2.algorithm.ACOWithDataMemory;
-import a2.algorithm.ACOWithDensityMemory;
+import a2.grid.Cell;
+import a2.grid.Grid;
+import java.util.ArrayList;
 
 /**
  *
@@ -106,6 +109,21 @@ public class Main {
         aco.print();
         System.out.println();
 
+        ArrayList <ArrayList <Cell> > clusters = ClusterFinder.find(aco.getGrid());
+        System.out.println ("found clusters: " + clusters.size());
+        for (int i = 0; i < clusters.size(); i++) {
+            Grid g = new Grid (xSize,ySize);
+            for (int j = 0; j < clusters.get(i).size(); j++) {
+                g.setCellData(clusters.get(i).get(j).getX(),
+                        clusters.get(i).get(j).getY(),
+                        clusters.get(i).get(j).getData());
+            }
+            System.out.println("\nCluster "+ i + ":");
+            g.print();
+            System.out.println();
+        }
+
+        ClusterEvaluator.evaluate(clusters, dataVectorSize);
         
     }
 
