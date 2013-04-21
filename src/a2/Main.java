@@ -82,8 +82,8 @@ public class Main {
 
 
 
-        ACOWithDataMemory aco = new ACOWithDataMemory (xSize, ySize, numberOfAnts, numberOfDataVectors, dataVectorSize, dataVectorRange, antMemorySize);
-        //ACOWithDensityMemory aco = new ACOWithDensityMemory (xSize, ySize, numberOfAnts, numberOfDataVectors, dataVectorSize, dataVectorRange, antMemorySize);
+        //ACOWithDataMemory aco = new ACOWithDataMemory (xSize, ySize, numberOfAnts, numberOfDataVectors, dataVectorSize, dataVectorRange, antMemorySize);
+        ACOWithDensityMemory aco = new ACOWithDensityMemory (xSize, ySize, numberOfAnts, numberOfDataVectors, dataVectorSize, dataVectorRange, antMemorySize);
         aco.setGamma(gamma);
         aco.setGamma1(gamma1);
         aco.setGamma2(gamma2);
