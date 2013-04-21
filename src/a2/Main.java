@@ -5,8 +5,12 @@
 
 package a2;
 
+import a2.Evaluation.ClusterEvaluator;
+import a2.Evaluation.ClusterFinder;
 import a2.algorithm.ACO;
-import javax.print.attribute.standard.NumberOfDocuments;
+import a2.grid.Cell;
+import a2.grid.Grid;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,35 +24,37 @@ public class Main {
     public static void main(String[] args) {
 
         // test args:
-        if (args.length != 10) {
+        if (args.length != 11) {
             System.out.println("Usage:");
-            System.out.println("Main <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2> <ant velocity>");
+            System.out.println("Main <iterations> <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2> <ant velocity>");
             return;
         }
 
-            int xSize = -1;
-            int ySize = -1;
-            int numberOfAnts = -1;
-            int numberOfDataVectors = -1;
-            int dataVectorSize = -1;
-            int dataVectorRange = -1;
-            double gamma = -1;
-            double gamma1 = -1;
-            double gamma2 = -1;
-            int antVelocity = -1;
+    double iterations = -1;
+    int xSize = -1;
+    int ySize = -1;
+    int numberOfAnts = -1;
+    int numberOfDataVectors = -1;
+    int dataVectorSize = -1;
+    int dataVectorRange = -1;
+    double gamma = -1;
+    double gamma1 = -1;
+    double gamma2 = -1;
+    int antVelocity = -1;
 
 
         try {
-            xSize = Integer.parseInt(args[0]);
-            ySize = Integer.parseInt(args[1]);
-            numberOfAnts = Integer.parseInt(args[2]);
-            numberOfDataVectors = Integer.parseInt(args[3]);
-            dataVectorSize = Integer.parseInt(args[4]);
-            dataVectorRange = Integer.parseInt(args[5]);
-            gamma = Double.parseDouble(args[6]);
-            gamma1 = Double.parseDouble(args[7]);
-            gamma2 = Double.parseDouble(args[8]);
-            antVelocity = Integer.parseInt(args[9]);
+            iterations = Double.parseDouble(args[0]);
+            xSize = Integer.parseInt(args[1]);
+            ySize = Integer.parseInt(args[2]);
+            numberOfAnts = Integer.parseInt(args[3]);
+            numberOfDataVectors = Integer.parseInt(args[4]);
+            dataVectorSize = Integer.parseInt(args[5]);
+            dataVectorRange = Integer.parseInt(args[6]);
+            gamma = Double.parseDouble(args[7]);
+            gamma1 = Double.parseDouble(args[8]);
+            gamma2 = Double.parseDouble(args[9]);
+            antVelocity = Integer.parseInt(args[10]);
 
             System.out.println ("Using a " + xSize + " by " + ySize + " grid with " + numberOfAnts + " ants and " + numberOfDataVectors + " data vectors of size " + dataVectorSize + " and range " + dataVectorRange + ".");
             System.out.println("gamma = "+gamma+"; gamma1 = "+gamma1+"; gamma2 = "+gamma2);
@@ -59,7 +65,8 @@ public class Main {
             return;
         }
 
-        if (xSize == -1 ||
+        if (iterations == -1 ||
+            xSize == -1 ||
             ySize == -1 ||
             numberOfAnts == -1 ||
             numberOfDataVectors == -1 ||
@@ -82,24 +89,31 @@ public class Main {
         aco.setAntVelocity(antVelocity);
         System.out.println ("\nBEFORE:\n");
         aco.print();
-        double iterations = 10000;
 
         int percent = 0;
         for (double i = 0; i < iterations; i++) {
             aco.iterate();
-            /*if (i % 100 == 0) {
-                if ((int)(i / iterations * 100) % 10 == 0 && percent != (int)(i / iterations * 100)) {
-                    percent = (int)(i / iterations * 100);
-                    System.out.println(percent + "%");
-                }
-            }*/
         }
         aco.stop();
         System.out.println("\n\nAFTER:\n");
         aco.print();
         System.out.println();
 
-        
+        ArrayList <ArrayList <Cell> > clusters = ClusterFinder.find(aco.getGrid());
+        System.out.println ("found clusters: " + clusters.size());
+        for (int i = 0; i < clusters.size(); i++) {
+            Grid g = new Grid (xSize,ySize);
+            for (int j = 0; j < clusters.get(i).size(); j++) {
+                g.setCellData(clusters.get(i).get(j).getX(),
+                        clusters.get(i).get(j).getY(),
+                        clusters.get(i).get(j).getData());
+            }
+            System.out.println("\nCluster "+ i + ":");
+            g.print();
+            System.out.println();
+        }
+
+        ClusterEvaluator.evaluate(clusters, dataVectorSize);
     }
 
 }

@@ -15,9 +15,9 @@ public class EuclideanDistanceDataComparator implements DataComparator {
 
         double distance = 0.0;
         for (int i = 0; i < d1.getSize(); i++) {
-            distance += Math.pow( (Double)d1.getData().get(i) - (Double)d2.getData().get(i), 2.0 );
+            distance += Math.pow( (Double)(d1.getData().get(i)) - (Double)(d2.getData().get(i)), 2.0 );
         }
 
-        return distance;
+        return Math.sqrt(distance);
     }
 }
