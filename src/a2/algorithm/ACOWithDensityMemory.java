@@ -323,4 +323,8 @@ public class ACOWithDensityMemory {
         }
         return bestPosition;
     }
+
+    public Grid getGrid () {
+        return this.grid;
+    }
 }

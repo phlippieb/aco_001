@@ -322,4 +322,8 @@ public class ACOWithDataMemory {
         }
         return bestData;
     }
+
+    public Grid getGrid () {
+        return this.grid;
+    }
 }
