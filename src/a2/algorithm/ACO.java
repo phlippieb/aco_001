@@ -160,8 +160,6 @@ public class ACO {
         }
     }
 
-    //The speed of ants come into play here.
-    //Using equation 17.48 from Engelbrecht's book
     protected double computeDensity (Data d, Grid grid, int x, int y) {
         Data theData = d.clone();
         if (theData == null) {
