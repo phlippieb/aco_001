@@ -14,9 +14,11 @@ import a2.grid.Grid;
 import java.util.ArrayList;
 
 /**
- *
+ * The main branch version of this algorithm has no velocity or memory.
+ * For ant velocity or short term memory, check out the other branches.
  * @author phlippie
  */
+
 public class ACO {
 
     Grid grid;
@@ -25,15 +27,10 @@ public class ACO {
     int dataSize = 5;
     int dataRange = 10;
     DataComparator dataComparator = new EuclideanDistanceDataComparator ();
-    int maxAntVelocity = 2;
     int patchRadius = 1; // The patch is a square with sides of 2r + 1
     double gamma = 0.01;
     double gamma1 = 2.5;
     double gamma2 = 2.5;
-
-    public void setAntVelocity (int velocity) {
-        this.maxAntVelocity = velocity;
-    }
 
     /**The patch will be a square around an ant, with sides of length 2r+1.
      * @param r
@@ -176,8 +173,7 @@ public class ACO {
         double velocity = 0.0;
         for (int i = 0; i < patchData.size(); i++) {
             distance = dataComparator.getDistanceBetween(theData, patchData.get(i));
-            velocity = (Math.random() * (double)(maxAntVelocity -1)) + 1.0;
-            sum += (1 - (distance / (gamma * (1 - ((velocity -1)/(maxAntVelocity))))));
+            sum += (1 - (distance / (gamma)));
         }
         if (sum < 0.0) {
             return 0.0;

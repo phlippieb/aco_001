@@ -20,9 +20,9 @@ public class Main {
     public static void main(String[] args) {
 
         // test args:
-        if (args.length != 10) {
+        if (args.length != 9) {
             System.out.println("Usage:");
-            System.out.println("Main <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2> <ant velocity>");
+            System.out.println("Main <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2>");
             return;
         }
 
@@ -35,7 +35,6 @@ public class Main {
             double gamma = -1;
             double gamma1 = -1;
             double gamma2 = -1;
-            int antVelocity = -1;
 
 
         try {
@@ -48,11 +47,9 @@ public class Main {
             gamma = Double.parseDouble(args[6]);
             gamma1 = Double.parseDouble(args[7]);
             gamma2 = Double.parseDouble(args[8]);
-            antVelocity = Integer.parseInt(args[9]);
 
             System.out.println ("Using a " + xSize + " by " + ySize + " grid with " + numberOfAnts + " ants and " + numberOfDataVectors + " data vectors of size " + dataVectorSize + " and range " + dataVectorRange + ".");
             System.out.println("gamma = "+gamma+"; gamma1 = "+gamma1+"; gamma2 = "+gamma2);
-            System.out.println ("maximum ant velocity is " + antVelocity);
         } catch (Exception e) {
             System.out.println ("Invalid argument passed.");
             System.out.println (e);
@@ -67,8 +64,7 @@ public class Main {
             dataVectorRange == -1 ||
             gamma == -1 ||
             gamma1 == -1 ||
-            gamma2 == -1 ||
-            antVelocity == -1) {
+            gamma2 == -1) {
             System.out.println ("Invalid or unitialized args.");
             return;
         }
@@ -79,7 +75,6 @@ public class Main {
         aco.setGamma(gamma);
         aco.setGamma1(gamma1);
         aco.setGamma2(gamma2);
-        aco.setAntVelocity(antVelocity);
         System.out.println ("\nBEFORE:\n");
         aco.print();
         double iterations = 10000;
