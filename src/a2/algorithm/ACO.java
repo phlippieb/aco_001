@@ -85,13 +85,15 @@ public class ACO {
             //initialize the datavector with random data
             ArrayList randomData = new ArrayList();
             for (int j = 0; j < dataSize; j++) {
-                randomData.add(new Double((int)(Math.random()) * dataRange));
-                //randomData.add(new Double(5.0)); //test with one type to force clusters
+                randomData.add(new Double((int)((Math.random()) * dataRange)));
             }
 
             Data newData = new Data (randomData);
             grid.setCellData(randomX, randomY, newData);
             this.data[i] = newData;
+            System.out.print ("created data vector: [");
+            for (int a = 0; a < this.dataSize; a++) System.out.print (newData.getData().get(a) + " ");
+            System.out.println ("]");
         }
 
         //init ants and place randomly on grid
@@ -128,25 +130,25 @@ public class ACO {
         double neighbourhoodDensity = 0.0, probability = 0.0;
         int antX, antY;
         
-        for (int i = 0; i < ants.length; i++) {
-            antX = ants[i].getX();
-            antY = ants[i].getY();
-            if (!ants[i].hasData() && grid.cellHasData(antX, antY)) {
+        for (Ant ant : ants) {
+            antX = ant.getX();
+            antY = ant.getY();
+            if (!ant.hasData() && grid.cellHasData(antX, antY)) {
                 neighbourhoodDensity = computeDensity(grid.getCellData(antX, antY), grid, antX, antY);
                 probability = computePickupProbability(neighbourhoodDensity);
                 if (randomBoolean(probability)) {
-                    ants[i].setData(grid.clearCellData(antX, antY));
+                    ant.setData(grid.clearCellData(antX, antY));
                 }
             } else
-            if (ants[i].hasData() && !grid.cellHasData(antX, antY)) {
-                neighbourhoodDensity = computeDensity(ants[i].getData(), grid, antX, antY);
+            if (ant.hasData() && !grid.cellHasData(antX, antY)) {
+                neighbourhoodDensity = computeDensity(ant.getData(), grid, antX, antY);
                 probability = computeDropProbability(neighbourhoodDensity);
                 if (randomBoolean(probability)) {
-                    grid.setCellData(antX, antY, ants[i].clearData());
+                    grid.setCellData(antX, antY, ant.clearData());
                 }
                 
             }
-            moveAnt (ants[i], grid);
+            moveAnt (ant, grid);
         }
     }
 
@@ -262,5 +264,9 @@ public class ACO {
             return probability != 0.0; //would still return true if random and probability were 0.
         }
         return false;
+    }
+
+    public Grid getGrid () {
+        return this.grid;
     }
 }
