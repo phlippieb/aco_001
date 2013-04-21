@@ -5,6 +5,7 @@
 
 package a2;
 
+import a2.Evaluation.ClusterEvaluator;
 import a2.Evaluation.ClusterFinder;
 import a2.algorithm.ACO;
 import a2.algorithm.ACOWithDataMemory;
@@ -123,6 +124,8 @@ public class Main {
             g.print();
             System.out.println();
         }
+
+        ClusterEvaluator.evaluate(clusters, dataVectorSize);
 
         
     }
