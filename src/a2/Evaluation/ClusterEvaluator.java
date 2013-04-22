@@ -10,7 +10,18 @@ import java.util.ArrayList;
  */
 public class ClusterEvaluator {
 
-    public static void evaluate (ArrayList <ArrayList <Cell> > clusters, int dataSize) {
+    public static void evaluate (ArrayList <ArrayList <Cell> > clusters, int dataSize, int totalDataCount) {
+
+        // find the total number of clustered data
+        int totalClusteredData = 0;
+        for (ArrayList <Cell> cluster : clusters) {
+            for (Cell cell : cluster) {
+                totalClusteredData ++;
+            }
+        }
+
+        int totalUnclusteredData = totalDataCount - totalClusteredData;
+        double clusteredData = totalClusteredData / (double)totalDataCount;
 
         // find all the intra-cluster distances
         ArrayList <Double> intraClusterDistances = new ArrayList <Double> ();
@@ -53,6 +64,7 @@ public class ClusterEvaluator {
         System.out.println();
         System.out.println ("Number of clusters:   " + clusters.size());
         System.out.println ("Average cluster size: " + averageClusterSize);
+        System.out.println ("Clustered data :" + totalClusteredData + "/" + totalDataCount + " (" + (clusteredData*100) + "%)");
         System.out.println ("Average intra-cluster distance: " +averageIntraClusterDistance);
         System.out.println ("Average inter-cluster distance: " +averageInterClusterDistance);
 
