@@ -26,9 +26,9 @@ public class Main {
     public static void main(String[] args) {
 
         // test args:
-        if (args.length != 12) {
+        if (args.length != 13) {
             System.out.println("Usage:");
-            System.out.println("Main <iterations> <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2> <ant memory size> <ant memory bias U(0,1)>");
+            System.out.println("Main <iterations> <x size> <y size> <number of ants> <number of data vectors> <data vector size> <data vector range> <gamma> <gamma1> <gamma2> <ant velocity> <ant memory size> <ant memory bias U(0,1)>");
             return;
         }
 
@@ -42,6 +42,7 @@ public class Main {
         double gamma = -1;
         double gamma1 = -1;
         double gamma2 = -1;
+        double antVelocity = -1;
         int antMemorySize = -1;
         double antMemoryBias = -1;
 
@@ -56,8 +57,9 @@ public class Main {
             gamma = Double.parseDouble(args[7]);
             gamma1 = Double.parseDouble(args[8]);
             gamma2 = Double.parseDouble(args[9]);
-            antMemorySize = Integer.parseInt(args[10]);
-            antMemoryBias = Double.parseDouble(args[11]);
+            antVelocity = Double.parseDouble(args[10]);
+            antMemorySize = Integer.parseInt(args[11]);
+            antMemoryBias = Double.parseDouble(args[12]);
 
 
             System.out.println ("Using a " + xSize + " by " + ySize + " grid with " + numberOfAnts + " ants and " + numberOfDataVectors + " data vectors of size " + dataVectorSize + " and range " + dataVectorRange + ".");
@@ -92,6 +94,7 @@ public class Main {
         aco.setGamma(gamma);
         aco.setGamma1(gamma1);
         aco.setGamma2(gamma2);
+        aco.setAntVelocity((int)antVelocity);
         aco.setMemoryBias(antMemoryBias);
         System.out.println ("\nBEFORE:\n");
         aco.print();
