@@ -107,9 +107,9 @@ public class ACOWithDensityMemory {
             Data newData = new Data (randomData);
             grid.setCellData(randomX, randomY, newData);
             this.data[i] = newData;
-            System.out.print ("created data vector: [");
-            for (int a = 0; a < this.dataSize; a++) System.out.print (newData.getData().get(a) + " ");
-            System.out.println ("]");
+            //System.out.print ("created data vector: [");
+            //for (int a = 0; a < this.dataSize; a++) System.out.print (newData.getData().get(a) + " ");
+            //System.out.println ("]");
         }
 
         //init ants and place randomly on grid
