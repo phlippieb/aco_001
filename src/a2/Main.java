@@ -58,7 +58,7 @@ public class Main {
 
             System.out.println ("Using a " + xSize + " by " + ySize + " grid with " + numberOfAnts + " ants and " + numberOfDataVectors + " data vectors of size " + dataVectorSize + " and range " + dataVectorRange + ".");
             System.out.println("gamma = "+gamma+"; gamma1 = "+gamma1+"; gamma2 = "+gamma2);
-            System.out.println ("maximum ant velocity is " + antVelocity);
+            System.out.println ("ant speed: " + antVelocity);
         } catch (Exception e) {
             System.out.println ("Invalid argument passed.");
             System.out.println (e);
@@ -87,20 +87,20 @@ public class Main {
         aco.setGamma1(gamma1);
         aco.setGamma2(gamma2);
         aco.setAntVelocity(antVelocity);
-        System.out.println ("\nBEFORE:\n");
-        aco.print();
+        //System.out.println ("\nBEFORE:\n");
+        //aco.print();
 
         int percent = 0;
         for (double i = 0; i < iterations; i++) {
             aco.iterate();
         }
         aco.stop();
-        System.out.println("\n\nAFTER:\n");
-        aco.print();
-        System.out.println();
+        //System.out.println("\n\nAFTER:\n");
+        //aco.print();
+        //System.out.println();
 
         ArrayList <ArrayList <Cell> > clusters = ClusterFinder.find(aco.getGrid());
-        System.out.println ("found clusters: " + clusters.size());
+        /*System.out.println ("found clusters: " + clusters.size());
         for (int i = 0; i < clusters.size(); i++) {
             Grid g = new Grid (xSize,ySize);
             for (int j = 0; j < clusters.get(i).size(); j++) {
@@ -111,7 +111,7 @@ public class Main {
             System.out.println("\nCluster "+ i + ":");
             g.print();
             System.out.println();
-        }
+        }*/
 
         ClusterEvaluator.evaluate(clusters, dataVectorSize, numberOfDataVectors);
     }
