@@ -126,7 +126,7 @@ public class Main {
             System.out.println();
         }
 
-        ClusterEvaluator.evaluate(clusters, dataVectorSize);
+        ClusterEvaluator.evaluate(clusters, dataVectorSize, numberOfDataVectors);
         
     }
 
